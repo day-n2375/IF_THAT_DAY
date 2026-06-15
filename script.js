@@ -1703,7 +1703,7 @@ if (PAGE === 'ending') { ;(function() {
    타이틀  index.html
    ============================================================ */
 if (PAGE === 'index') { ;(function() {
-    const bgm = new Audio('folk_acoustic-morning-in-the-forest-149255.mp3')
+    const bgm = new Audio('bgm/folk_acoustic-morning-in-the-forest-149255.mp3')
     bgm.loop = true; bgm.volume = 0.4
     function fadeBGM() {
         let t = setInterval(() => { bgm.volume = Math.max(0, bgm.volume - 0.02); if (bgm.volume <= 0) { bgm.pause(); bgm.volume = 0.4; clearInterval(t) } }, 50)
