@@ -226,7 +226,7 @@ if (PAGE === 'day1') { ;(function() {
     const promptEl = document.getElementById('interact-prompt')
     const promptTEl = document.getElementById('interact-prompt-text')
 
-    let step = 15, playerX = 400, isFacingLeft = false, isMoving = false, isLocked = false
+    let step = 11, playerX = 400, isFacingLeft = false, isMoving = false, isLocked = false
     let keysPressed = {}, isTransitioning = false
     let currentModule = '', activeChapter = null, S = {}
     let currentMode = 'home'  // 'home' | 'company' | 'bakery'
@@ -765,7 +765,7 @@ if (PAGE === 'day2') { ;(function() {
     const promptEl = document.getElementById('interact-prompt')
     const promptTEl = document.getElementById('interact-prompt-text')
 
-    let step = 15, playerX = 300, isFacingLeft = false, isMoving = false, isLocked = false
+    let step = 11, playerX = 300, isFacingLeft = false, isMoving = false, isLocked = false
     let keysPressed = {}, isTransitioning = false
     let currentModule = '', activeChapter = null, S = {}
     let currentMode = 'home'
@@ -1300,7 +1300,7 @@ if (PAGE === 'day3') { ;(function() {
     const promptEl = document.getElementById('interact-prompt')
     const promptTEl = document.getElementById('interact-prompt-text')
 
-    let step = 15, playerX = 300, isFacingLeft = false, isMoving = false, isLocked = false
+    let step = 11, playerX = 300, isFacingLeft = false, isMoving = false, isLocked = false
     let keysPressed = {}, isTransitioning = false
     let currentModule = 'room-2'
     let S = { closetState: 0, day3Talked: false }
@@ -1517,7 +1517,7 @@ if (PAGE === 'day4') { ;(function() {
     const promptEl = document.getElementById('interact-prompt')
     const promptTEl = document.getElementById('interact-prompt-text')
 
-    let step = 15, playerX = 300, isFacingLeft = false, isMoving = false, isLocked = false
+    let step = 11, playerX = 300, isFacingLeft = false, isMoving = false, isLocked = false
     let keysPressed = {}
     let phoneChecked = false
 
