@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>IF THAT DAY — 3일차</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="scene-room-2" class="scene">
+  <div class="background"><img id="room2-bg" src="img/background.png" alt=""></div>
+  <div id="closet-open-overlay" class="closet-open-overlay hidden"></div>
+  <div class="closet" id="closet-2"></div>
+</div>
+
+<div id="scene-hallway-2" class="scene">
+  <div id="door-daughter" class="interact-point daughters-door-hitbox"></div>
+  <div id="door-voice-2" class="door-voice-anchor"></div>
+</div>
+
+<!-- ========== 공통 UI ========== -->
+
+<div id="player" class="character idle"></div>
+<div id="monologue" hidden></div>
+<div id="interact-prompt" class="interact-prompt hidden">
+  <span id="interact-prompt-text"></span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

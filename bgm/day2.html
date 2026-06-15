@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>IF THAT DAY — 2일차</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ========== 아침 ========== -->
+
+<div id="scene-room-2" class="scene">
+  <div class="background"><img id="room2-bg" src="img/background.png" alt=""></div>
+  <div id="closet-open-overlay" class="closet-open-overlay hidden"></div>
+  <div class="closet" id="closet-2"></div>
+</div>
+
+<div id="scene-hallway-2-1" class="scene">
+  <div id="door-daughter-locked" class="interact-point daughters-door-hitbox"></div>
+  <div id="door-voice-2-1" class="door-voice-anchor"></div>
+</div>
+
+<div id="scene-kitchen-1" class="scene">
+  <div class="door-frame-left"></div>
+  <div id="kitchen-eat-point" class="interact-point kitchen-point-hitbox"></div>
+  <div id="wife" class="character"></div>
+  <div class="kitchen-foreground"></div>
+</div>
+
+<!-- ========== 회사 ========== -->
+
+<div id="company-loading" class="loading-overlay" hidden>
+  <div class="scene-label">AM 9:00</div>
+  <div class="pixel-char">🏢</div>
+  <div class="scene-title-text">Chapter ■■</div>
+  <div class="scene-desc">출근길,<br>오늘도 별일 없겠지.</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="company-loading-bar"></div>
+  </div>
+</div>
+
+<div id="scene-company" class="scene">
+  <div class="background"><img src="img/com.png" alt=""></div>
+  <div id="coworker" class="coworker-placeholder"></div>
+  <div id="daughter" class="phone-voice-anchor"></div>
+  <div id="phone-overlay" class="phone-overlay hidden">
+    <div class="phone-box">
+      <div class="phone-ring-icon">📞</div>
+      <div class="phone-caller-name">사랑하는 딸</div>
+      <div class="phone-sub">전화가 왔습니다</div>
+      <div class="phone-btns">
+        <button id="btn-decline" class="phone-btn decline">거절</button>
+        <button id="btn-answer"  class="phone-btn answer">통화</button>
+      </div>
+    </div>
+  </div>
+  <div id="phone-lock-screen" class="phone-lock-screen hidden">
+    <div class="lock-screen-inner">
+      <div class="lock-time">PM 1:00</div>
+      <div class="lock-notif-card">
+        <div class="lock-notif-icon">📅</div>
+        <div class="lock-notif-body">
+          <div class="lock-notif-app">캘린더</div>
+          <div class="lock-notif-text">내일: 사랑하는 딸 생일</div>
+        </div>
+      </div>
+      <div class="lock-hint">— 클릭하여 닫기 —</div>
+    </div>
+  </div>
+  <div id="fade-overlay" class="fade-overlay"></div>
+</div>
+
+<!-- ========== 빵집 (선택) ========== -->
+
+<div id="bakery-loading" class="loading-overlay" hidden>
+  <div class="scene-label">PM 6:30</div>
+  <div class="pixel-char">🎂</div>
+  <div class="scene-title-text">들어가는 길</div>
+  <div class="scene-desc">잠깐 들렀다 가야지.</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="bakery-loading-bar"></div>
+  </div>
+</div>
+
+<div id="scene-bakery" class="scene">
+  <div class="background"><img src="img/BB.png" alt=""></div>
+  <div id="cake-cream"   class="cake-item" data-name="생크림 케이크" data-cx="440"></div>
+  <div id="cake-choco"   class="cake-item" data-name="초코 케이크"   data-cx="610"></div>
+  <div id="cake-goguma"  class="cake-item" data-name="고구마 케이크" data-cx="780"></div>
+  <div id="cake-blue"    class="cake-item" data-name="블루베리 케이크" data-cx="950"></div>
+  <div id="cashier" class="cashier-counter"></div>
+</div>
+
+<!-- ========== 집 로딩 ========== -->
+
+<div id="home-loading" class="loading-overlay" hidden>
+  <div class="scene-label">PM 7:00</div>
+  <div class="pixel-char">🏠</div>
+  <div class="scene-title-text">퇴근길</div>
+  <div class="scene-desc">이제 집에 가야겠다.</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="home-loading-bar"></div>
+  </div>
+</div>
+
+<!-- ========== 저녁 ========== -->
+
+<div id="scene-hallway-2" class="scene">
+  <div id="door-daughter" class="interact-point daughters-door-hitbox"></div>
+  <div id="door-voice-2" class="door-voice-anchor"></div>
+</div>
+
+<div id="scene-kitchen-2" class="scene">
+  <div class="door-frame-left"></div>
+  <div id="kitchen-cake-point" class="interact-point kitchen-point-hitbox"></div>
+  <div class="kitchen-foreground"></div>
+</div>
+
+<div id="scene-daughter" class="scene">
+  <div id="light-switch" class="interact-point light-switch-hitbox"></div>
+</div>
+
+<!-- ========== 공통 UI ========== -->
+
+<div id="player" class="character idle"></div>
+<div id="monologue" hidden></div>
+<div id="interact-prompt" class="interact-prompt hidden">
+  <span id="interact-prompt-text"></span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

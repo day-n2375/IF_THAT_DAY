@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IF THAT DAY</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="index-page">
+
+<div id="game-root">
+
+  <!-- 타이틀 씬 -->
+  <div id="scene-title" class="scene active">
+    <div class="title-logo" id="title-logo" role="button" tabindex="0">
+      <span class="title-main">IF THAT DAY</span>
+      <span class="title-sub-kr">만약 그날에.</span>
+    </div>
+
+    <div class="pixel-divider"></div>
+
+    <div class="click-to-start" id="start-btn" role="button" tabindex="0">
+      ▶ 클릭하여 시작하기
+    </div>
+  </div>
+
+  <!-- 로딩 씬 -->
+  <div id="scene-game" class="scene">
+    <div class="scene-label">Chapter ■■</div>
+    <div class="pixel-char">🌧</div>
+    <div class="scene-title-text">AM 7:00</div>
+    <div class="scene-desc">살면서 그 누구든<br>후회를 한다.</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
