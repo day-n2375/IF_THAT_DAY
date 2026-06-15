@@ -6,11 +6,11 @@
 
 /* ===== SHARED: VOICES ===== */
 const VOICES = {
-    mono:     { freq: 200, rand: 10,  type: 'sine',     gain: 0.10, dur: 0.08 },
-    player:   { freq: 220, rand: 15,  type: 'sine',     gain: 0.12, dur: 0.08 },
-    wife:     { freq: 480, rand: 20,  type: 'triangle', gain: 0.12, dur: 0.07 },
-    daughter: { freq: 520, rand: 25,  type: 'triangle', gain: 0.10, dur: 0.07 },
-    cowork:   { freq: 280, rand: 25,  type: 'sine',     gain: 0.12, dur: 0.08 },
+    mono:     { freq: 200, rand: 10,  type: 'sine',     gain: 0.25, dur: 0.08 },
+    player:   { freq: 220, rand: 15,  type: 'sine',     gain: 0.30, dur: 0.08 },
+    wife:     { freq: 480, rand: 20,  type: 'triangle', gain: 0.30, dur: 0.07 },
+    daughter: { freq: 520, rand: 25,  type: 'triangle', gain: 0.25, dur: 0.07 },
+    cowork:   { freq: 280, rand: 25,  type: 'sine',     gain: 0.30, dur: 0.08 },
 }
 
 /* ===== SHARED: DialogManager ===== */
@@ -226,7 +226,7 @@ if (PAGE === 'day1') { ;(function() {
     const promptEl = document.getElementById('interact-prompt')
     const promptTEl = document.getElementById('interact-prompt-text')
 
-    let step = 9, playerX = 400, isFacingLeft = false, isMoving = false, isLocked = false
+    let step = 11, playerX = 400, isFacingLeft = false, isMoving = false, isLocked = false
     let keysPressed = {}, isTransitioning = false
     let currentModule = '', activeChapter = null, S = {}
     let currentMode = 'home'  // 'home' | 'company' | 'bakery'
