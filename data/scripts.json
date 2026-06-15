@@ -1,0 +1,164 @@
+{
+  "no_clothes_exit": [
+    { "type": "mono", "text": "옷을 갈아입고 나가는 게 좋을 것 같다." }
+  ],
+
+  "day1_room_morning": [
+    { "type": "mono", "text": "평소와 다를 바 없는 아침이다." },
+    { "type": "mono", "text": "[slow]개운하네.[/slow]" },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나", "text": "오늘은 회의 말고 다른 건 없던가?" },
+    { "type": "mono", "text": "옷을 갈아입고 아침을 먹으러 나가자." }
+  ],
+
+  "day2_room_wakeup": [
+    { "type": "mono", "text": "헉,[pause=600] ..[pause=400] ....[pause=500] 꿈인가?" },
+    { "type": "mono", "text": "손에 땀이..." },
+    { "type": "mono", "text": "[slow]...[pause=400] 기분 나쁜 꿈이군.[/slow]" }
+  ],
+
+  "day3_room_wakeup": [
+    { "type": "mono", "text": "헉.[pause=500] 또야." },
+    { "type": "mono", "text": "[slow]...손이 떨린다.[/slow]" }
+  ],
+
+  "day4_room_wakeup": [
+    { "type": "mono", "text": "..." },
+    { "type": "mono", "text": "오늘은." }
+  ],
+
+  "day1_kitchen_wife": [
+    { "type": "mono", "text": "부엌으로 가니 맛있는 냄새가 난다." },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "여보, 수아는?" },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "아픈가봐요 안 일어나네." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "학교 가기 싫다고 그러고." },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "음, 별일이네." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "조금 더 자게 두고 일어나면 병원 갔다가 학교 가라고 하게요." },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "그래도 너무 안 좋으면 집으로 오라고 그래." },
+    { "type": "mono", "text": "밥을 다 먹었으니 이제 출근하자." }
+  ],
+
+  "day2_kitchen_wife": [
+    { "type": "mono", "text": "부엌으로 가니 맛있는 냄새가 난다." },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "... [pause=400] 여보." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "응?" },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "요즘 수아 별 일 없지?" },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "갑자기? 평소랑 비슷해 보이긴 하던데." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "당신도 알잖아요. 학년이 바뀌고 수아가 말이 많이 없어진거." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "사춘기다 싶은거죠, 뭐." },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "큰 일이 없으면 다행인데.." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "뭐 신경쓰이는 거라도 있어요?" },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "아니야, 오늘 꿈자리가 사나워서 그런가봐." },
+    { "type": "talk", "voice": "wife",   "charId": "wife",   "speaker": "아내", "text": "당신도 참. 내일 수아 생일이니까 올 때 케이크 잊지 말고 사 와요." },
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나",   "text": "그래, 내일 생일이니까.." },
+    { "type": "mono", "text": "밥을 다 먹었으니 이제 출근하자." }
+  ],
+
+  "day1_home_entry": [
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나", "text": "다녀왔습니다." },
+    { "type": "mono", "text": "수아 신발은 있는데. 자기 방에 있나?" }
+  ],
+
+  "day2_home_entry": [
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나", "text": "다녀왔습니다." },
+    { "type": "mono", "text": "익숙하고도 불안한 침묵이 집 안에 맴돈다." }
+  ],
+
+  "day1_cake_placed": [
+    { "type": "mono", "text": "케이크를 내려놓았다." }
+  ],
+
+  "day2_cake_placed": [
+    { "type": "mono", "text": "케이크를 내려놓았다." }
+  ],
+
+  "day2_knock_morning": [
+    { "type": "talk", "voice": "player",   "charId": "player",       "speaker": "나", "text": "딸, 있니?" },
+    { "type": "talk", "voice": "daughter", "charId": "door-voice-2-1", "speaker": "딸", "text": "....." },
+    { "type": "talk", "voice": "player",   "charId": "player",       "speaker": "나", "text": "몸은 괜찮아? 어디 아픈거야?" },
+    { "type": "talk", "voice": "daughter", "charId": "door-voice-2-1", "speaker": "딸", "text": "....." },
+    { "type": "talk", "voice": "player",   "charId": "player",       "speaker": "나", "text": "무슨 일 있으면 아빠한테 꼭 말해. 알았지?" },
+    { "type": "talk", "voice": "daughter", "charId": "door-voice-2-1", "speaker": "딸", "text": "....." },
+    { "type": "mono", "text": "이제 밥을 먹으러 가야한다." }
+  ],
+
+  "day2_knock_evening": [
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나", "text": "딸? 방에 있니?" },
+    { "type": "mono", "text": "..." }
+  ],
+
+  "day3_hallway_conversation": [
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "수아야, 안에 있지?" },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "...제발, 있다고 해줘." },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "[wave]아직 괜찮은거지, 그렇지?.[/wave]" },
+    { "type": "talk", "voice": "daughter", "charId": "door-voice-2", "speaker": "딸", "text": "...." },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "내일, 생일이잖아.. [pause=300] 어디 가고 싶은 곳 있어?" },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "아, 그래. 밥 먹고 좋아하는 호수로 엄마랑 같이 산책갈까?" },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "학교 안 가도 괜찮아. 하루 정도 쉰다고 뒤쳐지지 않으니까.." },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "그러니까..[pause=600] ..[pause=400] 제발..[pause=500] 답 좀 해줘.." },
+    { "type": "talk", "voice": "player",   "charId": "player",     "speaker": "나", "text": "....." }
+  ],
+
+  "day3_kitchen_blocked": [
+    { "type": "mono", "text": "정말로?" }
+  ],
+
+  "company_meeting": [
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "-해서 아무래도 긍정적인 전망이지 않을까 싶어." },
+    { "type": "talk", "voice": "cowork", "charId": "coworker", "speaker": "동료", "text": "그럼 프로젝트를 조금 더 구체적으로 진행해야겠군" },
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "그것도 그렇지. 그리고 다른 거래처 말인데-" }
+  ],
+
+  "company_ring_interrupt": [
+    { "type": "talk", "voice": "player", "charId": "player", "speaker": "나", "text": "... 잠시만." }
+  ],
+
+  "company_day1_cant_answer": [
+    { "type": "mono", "text": "지금은 회의중이다." }
+  ],
+
+  "company_call": [
+    { "type": "talk", "voice": "daughter", "charId": "daughter", "speaker": "사랑하는 딸", "text": "..." },
+    { "type": "talk", "voice": "player",   "charId": "player",   "speaker": "나",           "text": "여보세요, 딸?" },
+    { "type": "talk", "voice": "player",   "charId": "player",   "speaker": "나",           "text": "몸은 좀 어때, 괜찮아졌어?" },
+    { "type": "talk", "voice": "daughter", "charId": "daughter", "speaker": "사랑하는 딸", "text": "..." },
+    { "type": "talk", "voice": "player",   "charId": "player",   "speaker": "나",           "text": "딸, 거기 있지?" },
+    { "type": "talk", "voice": "daughter", "charId": "daughter", "speaker": "사랑하는 딸", "text": "...응." },
+    { "type": "talk", "voice": "player",   "charId": "player",   "speaker": "나",           "text": "무슨 일 있어?" },
+    { "type": "talk", "voice": "daughter", "charId": "daughter", "speaker": "사랑하는 딸", "text": "...아니야, 아무것도. 미안해 아빠." },
+    { "type": "talk", "voice": "player",   "charId": "player",   "speaker": "나",           "text": "아빠가 지금 일하고 있어서. 조금 이따가 다시 전화 줄게. 괜찮지?" },
+    { "type": "talk", "voice": "daughter", "charId": "daughter", "speaker": "사랑하는 딸", "text": "...응." }
+  ],
+
+  "company_decline": [
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "미안, 어디까지 이야기 했지?" },
+    { "type": "talk", "voice": "cowork", "charId": "coworker", "speaker": "동료", "text": "중요한 연락이면 받아도 되는데." },
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "괜찮아. 나중에 다시 걸면 되는 연락이라." }
+  ],
+
+  "company_post_call": [
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "미안, 오래 걸렸지." },
+    { "type": "talk", "voice": "cowork", "charId": "coworker", "speaker": "동료", "text": "괜찮아, 누구였는데?" },
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "딸. 오늘 몸이 안 좋아서 집에서 쉬고 있거든." },
+    { "type": "talk", "voice": "cowork", "charId": "coworker", "speaker": "동료", "text": "저런 몸 조심 하라고 그래. 푹 쉬고." },
+    { "type": "talk", "voice": "player", "charId": "player",   "speaker": "나",   "text": "그래." }
+  ],
+
+  "company_day1_after_notif": [
+    { "type": "mono", "text": "돌아가는 길에 미리 케이크를 사가야겠네." }
+  ],
+
+  "company_day2_after_notif": [
+    { "type": "mono", "text": "...." }
+  ],
+
+  "company_choice_bakery": "케이크를 사러 간다",
+  "company_choice_home":   "집에 간다",
+
+  "day4_ending_monologue": [
+    { "type": "mono", "text": "만약 그날, 내가 전화를 제대로 받았다면" },
+    { "type": "mono", "text": "만약 그날, 내가 집에 일찍 들어갔다면." },
+    { "type": "mono", "text": "만약 그날, 딸에게 무슨 일이 있었는지 더 잘 물었다면." },
+    { "type": "mono", "text": "만약 이전에, 딸의 안부를 자주 물었다면" },
+    { "type": "mono", "text": "만약, 그날에." }
+  ]
+}
