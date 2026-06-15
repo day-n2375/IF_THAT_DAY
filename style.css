@@ -1,0 +1,880 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@300&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+#game-root, .game-root {
+  width: 1920px;
+  height: 1080px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.scene { display: none; width: 1920px; height: 1080px; }
+.scene.active { display: block; }
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+.fade-out {
+  animation: fadeOut 0.15s ease forwards;
+}
+
+/*-------------- 게임 씬 공통 -----------------*/
+#scene-room01, #scene-room-1, #scene-room-2,
+#scene-hallway, #scene-hallway-1, #scene-hallway-2, #scene-hallway-2-1,
+#scene-livingroom, #scene-kitchen-1, #scene-kitchen-2,
+#scene-company,
+#scene-bakery,
+#scene-daughter {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+/* 방 */
+#scene-room01, #scene-room-1, #scene-room-2 { background-color: #ddd0b8; }
+
+/* 복도 */
+#scene-hallway, #scene-hallway-1, #scene-hallway-2, #scene-hallway-2-1 {
+  background-image: url('img/hallway.png');
+  background-size: 1920px 1080px;
+  image-rendering: pixelated;
+}
+
+/* 부엌 */
+#scene-livingroom, #scene-kitchen-1, #scene-kitchen-2 {
+  background-image: url('img/kitchen_BG.png');
+  background-size: 1920px 1080px;
+  image-rendering: pixelated;
+}
+
+#scene-company  { background-color: #d8dde6; }
+
+/*-------------- 빵집 씬 -----------------*/
+#scene-bakery { background-color: #faf0e6; }
+
+/* 케이크 아이템 (1920×1080 전체 오버레이) */
+.cake-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  background-size: 1920px 1080px;
+  background-repeat: no-repeat;
+  background-position: top left;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 1;
+}
+.cake-item.picked { display: none; }
+
+#cake-cream  { background-image: url('img/c1.png'); }
+#cake-choco  { background-image: url('img/c2.png'); }
+#cake-goguma { background-image: url('img/c3.png'); }
+#cake-blue   { background-image: url('img/c4.png'); }
+
+/* 장롱 열림 오버레이 */
+.closet-open-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  background-image: url('img/background_open.png');
+  background-size: 1920px 1080px;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 1;
+}
+.closet-open-overlay.hidden { display: none; }
+
+.cashier-counter {
+  position: absolute;
+  right: 140px;
+  bottom: 210px;
+  width: 260px;
+  height: 380px;
+  background: #8b6332;
+  border: 3px solid #5a3d18;
+  border-radius: 4px 4px 0 0;
+}
+
+.bakery-exit {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 1080px;
+}
+
+/* 방01 배경 div */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  z-index: 0;
+}
+.background img {
+  width: 1920px;
+  height: 1080px;
+  image-rendering: pixelated;
+  display: block;
+}
+
+/* 상호작용 포인트 공통 — 투명 히트박스 */
+.interact-point {
+  position: absolute;
+  /* 디버그 시: outline: 2px dashed cyan; */
+}
+
+/* 부엌 상호작용 포인트 (부엌1: 밥먹기 / 부엌2: 케이크) */
+#kitchen-point, .kitchen-point-hitbox {
+  position: absolute;
+  bottom: 150px;
+  left: 700px;
+  width: 400px;
+  height: 400px;
+}
+
+/* 옷장 상호작용 히트박스 (투명, 위치만) */
+.closet {
+  position: absolute;
+  right: 120px;
+  bottom: 150px;
+  width: 300px;
+  height: 500px;
+  /* 디버그 시: outline: 2px dashed red; */
+}
+
+/*-------------- 거실 -----------------*/
+/* 부엌 투명 포그라운드 레이어 (wife 위, player 아래) */
+.kitchen-foreground {
+  position: absolute;
+  inset: 0;
+  background-image: url('img/kitchen_T.png');
+  background-size: 1920px 1080px;
+  image-rendering: pixelated;
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+/*-------------- 복도 -----------------*/
+/* 딸의 목소리 앵커 (문 뒤에서 대화) — 캐릭터와 동일한 높이로 말풍선 위치 맞춤 */
+.door-voice-anchor {
+  position: absolute;
+  left: 750px;
+  bottom: 210px;
+  width: 0;
+  height: 576px;
+  pointer-events: none;
+}
+
+
+/*-------------- 캐릭터 -----------------*/
+.closet { z-index: 1; }
+
+/* 딸의 방 문 히트박스 */
+.daughters-door-hitbox {
+  left: 750px;
+  bottom: 0;
+  width: 300px;
+  height: 1080px;
+}
+
+/* 딸의 방: 불 꺼진 상태 */
+#scene-daughter {
+  background-image: url('img/dr.png');
+  background-size: 1920px 1080px;
+  image-rendering: pixelated;
+}
+
+/* 딸의 방: 불 켜진 상태 */
+#scene-daughter.lit {
+  background-image: url('img/drl.png');
+  background-size: 1920px 1080px;
+  image-rendering: pixelated;
+}
+
+/* 불 켜기 히트박스 */
+.light-switch-hitbox {
+  position: absolute;
+  left: 160px;
+  top: 300px;
+  width: 120px;
+  height: 300px;
+}
+
+/* 핸드폰 히트박스 (4일차) */
+.phone-item-hitbox {
+  position: absolute;
+  left: 700px;
+  bottom: 0;
+  width: 400px;
+  height: 1080px;
+}
+
+/* 부인 */
+#wife {
+  background-image: url('img/Wife.png') !important;
+  background-color: transparent !important;
+  z-index: 1 !important;
+  animation: idle 1.5s steps(7) infinite !important;
+  left: 600px;
+  height: 606px;
+}
+
+/* 주인공은 kitchen_T 레이어 위 */
+#player { z-index: 3; }
+
+.character {
+  width: 288px;
+  height: 576px;
+  background-image: url('img/idle.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  background-size: auto 576px;
+  position: absolute;
+  bottom: 210px;
+  z-index: 2;
+}
+
+/* 이동 시 walk 스프라이트 */
+.character.walk { background-image: url('img/Walk.png'); }
+
+/* 코스튬 변경 */
+.character.costume-alt      { background-image: url('img/idel_suit.png'); }
+.character.costume-alt.walk { background-image: url('img/walk_suit.png'); }
+
+.idle {
+  animation: idle 1.5s steps(7) infinite;
+}
+@keyframes idle {
+  from { background-position: 0px 0px; }
+  to   { background-position: -2016px 0px; }
+}
+
+.walk {
+  animation: walk 1.2s steps(4) infinite;
+}
+@keyframes walk {
+  from { background-position: 0px 0px; }
+  to   { background-position: -1152px 0px; }
+}
+
+/*-------------- 로딩 화면 -----------------*/
+#loading-root {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 7000;
+}
+.loading-overlay[hidden] { display: none; }
+
+.scene-label {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 11px;
+  color: #aaa;
+  letter-spacing: 2px;
+}
+.scene-title-text {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: clamp(14px, 2vw, 22px);
+  color: #111;
+  text-align: center;
+}
+.scene-desc {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  color: #555;
+  text-align: center;
+  line-height: 2;
+}
+.pixel-char { font-size: 40px; }
+
+.progress-bar-wrap {
+  width: 200px;
+  height: 6px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: #555;
+  width: 0%;
+  animation: load 2s steps(100) 0.3s forwards;
+}
+@keyframes load { to { width: 100%; } }
+
+/*-------------- 상호작용 유도 말풍선 -----------------*/
+.interact-prompt {
+  position: fixed;
+  background: #111;
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 300;
+  transform: translateX(-50%);
+  transition: opacity 0.15s;
+}
+.interact-prompt::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #111;
+}
+.interact-prompt.hidden { display: none; }
+
+/*-------------- 독백 (화면 하단 중앙) -----------------*/
+#monologue {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 22px;
+  color: #fff;
+  text-shadow: 2px 2px 6px #000, -1px -1px 4px #000;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.mono-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  vertical-align: middle;
+  animation: hintBlink 0.8s step-end infinite;
+}
+
+/*-------------- 말풍선 / 다이얼로그 -----------------*/
+.speech-bubble {
+  position: absolute;
+  bottom: 485px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: #fff;
+  border: 2px solid var(--bubble-border, #333);
+  border-radius: 10px;
+  padding: 8px 14px 6px;
+  max-width: 500px;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  color: #111;
+  line-height: 1.6;
+  white-space: normal;
+  word-break: keep-all;
+
+  pointer-events: none;
+  opacity: 0;
+  z-index: 100;
+}
+
+/* 꼬리 (테두리) */
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--bubble-border, #333);
+}
+/* 꼬리 (내부) */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #fff;
+}
+
+@keyframes bubbleIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bubbleOut { from { opacity: 1; } to { opacity: 0; } }
+.speech-bubble--in  { animation: bubbleIn  0.12s ease forwards; }
+.speech-bubble--out { animation: bubbleOut 0.15s ease forwards; }
+
+/* 화자 이름 */
+.speech-name {
+  font-size: 10px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* 텍스트 영역 */
+.speech-text {
+  display: block;
+  white-space: nowrap;
+}
+.speech-text span { display: inline; }
+
+/* 다음 진행 힌트 ▼ */
+.speech-hint {
+  display: inline;
+  font-size: 9px;
+  color: #aaa;
+  vertical-align: middle;
+  animation: hintBlink 0.8s step-end infinite;
+}
+@keyframes hintBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* 선택지 */
+.speech-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  pointer-events: auto;
+}
+.dlg-choice-btn {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+.dlg-choice-btn:hover { background: #e8e8e8; }
+
+/* wave 효과 */
+@keyframes dlgWave {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+.dlg-wave {
+  display: inline-block;
+  animation: dlgWave 0.6s ease-in-out infinite;
+}
+
+/* shake 효과 */
+@keyframes dlgShake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-2px); }
+  75%       { transform: translateX(2px); }
+}
+.dlg-shake {
+  display: inline-block;
+  animation: dlgShake 0.15s linear infinite;
+}
+
+/*-------------- 전화 오버레이 -----------------*/
+.phone-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 500;
+}
+.phone-overlay.hidden { display: none; }
+
+.phone-box {
+  background: #111827;
+  border: 2px solid #374151;
+  border-radius: 24px;
+  padding: 70px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.phone-ring-icon {
+  font-size: 64px;
+  animation: phoneRing 0.5s ease-in-out infinite alternate;
+}
+@keyframes phoneRing {
+  from { transform: rotate(-12deg); }
+  to   { transform: rotate(12deg); }
+}
+
+.phone-caller-name {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 32px;
+  color: #f9fafb;
+  font-weight: bold;
+}
+
+.phone-sub {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  color: #9ca3af;
+  letter-spacing: 1px;
+}
+
+.phone-btns {
+  display: flex;
+  gap: 80px;
+  margin-top: 30px;
+}
+
+.phone-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.1s;
+}
+.phone-btn:hover  { transform: scale(1.08); }
+.phone-btn:active { transform: scale(0.95); opacity: 0.8; }
+.phone-btn.decline { background: #ef4444; }
+.phone-btn.answer  { background: #22c55e; }
+
+/* 동료 */
+.coworker-placeholder {
+  position: absolute;
+  bottom: 210px;
+  left: 1200px;
+  width: 288px;
+  height: 576px;
+  background-color: transparent;
+  background-image: url('img/co.png');
+  background-repeat: no-repeat;
+  background-size: auto 576px;
+  image-rendering: pixelated;
+  animation: idle 1.5s steps(7) infinite;
+  transform: scaleX(-1);
+}
+.coworker-placeholder .speech-bubble {
+  transform: translateX(-50%) scaleX(-1);
+}
+
+/* 페이드 오버레이 */
+.fade-overlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.6s ease;
+}
+.fade-overlay.dark {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 핸드폰 잠금 화면 */
+.phone-lock-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 14, 24, 0.93);
+  z-index: 600;
+  cursor: pointer;
+}
+.phone-lock-screen.hidden { display: none; }
+
+.lock-screen-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.lock-time {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 88px;
+  color: #fff;
+  font-weight: 200;
+  letter-spacing: 6px;
+}
+
+.lock-notif-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 22px 36px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 420px;
+  backdrop-filter: blur(6px);
+}
+
+.lock-notif-icon { font-size: 30px; }
+
+.lock-notif-app {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.lock-notif-text {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  color: #fff;
+}
+
+.lock-hint {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 3px;
+}
+
+/* 딸 말풍선 앵커 */
+.phone-voice-anchor {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 210px;
+  width: 288px;
+  height: 576px;
+  pointer-events: none;
+}
+
+/*-------------- 컷신 -----------------*/
+.cutscene-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1080px;
+  z-index: 9000;
+  background: #000;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.cutscene-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1920px;
+  height: 1080px;
+  image-rendering: pixelated;
+  display: block;
+}
+
+.cutscene-box {
+  position: absolute;
+  background: #fff;
+}
+
+@keyframes cutBoxOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+.cutscene-box--out {
+  animation: cutBoxOut 0.25s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes cutOverlayOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+.cutscene-overlay--out {
+  animation: cutOverlayOut 0.4s ease forwards;
+  pointer-events: none;
+}
+
+/* ──────────────────────────────────────────────
+   컷신 박스 위치 — 숫자만 바꿔서 위치 조정
+   (top, left, width, height 단위: px / 기준: 1920×1080)
+   ────────────────────────────────────────────── */
+
+/* cut1 : 박스 3개 */
+.cut1-box-1 { top: 0px; left:    0px; width: 520px; height: 1080px; }
+.cut1-box-2 { top: 0px; left:    520px; width: 480px; height: 1080px; }
+.cut1-box-3 { top: 0px; left:    1000px; width: 1920px; height: 1080px; }
+
+/* cut2 : 박스 3개 */
+.cut2-box-1 { top:   0px; left:    0px; width: 910px; height: 500px; }
+.cut2-box-2 { top: 500px; left:    0px; width: 910px; height: 500px; }
+.cut2-box-3 { top: 0px; left:    910px; width: 1920px; height: 1080px; }
+
+/* cut3 : 박스 4개 — 좌상 / 좌하 / 중앙세로 / 우측대형 */
+.cut3-box-1 { top: 0;     left: 0;      width: 680px; height: 540px;  }
+.cut3-box-2 { top: 540px; left: 0;      width: 680px; height: 540px;  }
+.cut3-box-3 { top: 0;     left: 680px;  width: 470px; height: 1080px; }
+.cut3-box-4 { top: 0;     left: 1150px; width: 770px; height: 1080px; }
+
+
+/* ============================================================
+   타이틀 인덱스  index.html
+   ============================================================ */
+
+body.index-page {
+  background: #fff;
+}
+
+body.index-page #game-root {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  top: auto; left: auto;
+  transform: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.index-page .scene {
+  width: 100%;
+  min-height: 500px;
+  height: auto;
+}
+
+body.index-page .scene.active { display: flex; }
+
+/* ───── TITLE SCENE ───── */
+#scene-title {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 40px 20px 50px;
+}
+
+.title-logo {
+  cursor: pointer; text-align: center;
+  padding: 20px; transition: transform 0.1s; user-select: none;
+}
+.title-logo:hover  { transform: scale(1.03); }
+.title-logo:active { transform: scale(0.97); }
+
+.title-main {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: clamp(20px, 4vw, 34px);
+  color: #111;
+  letter-spacing: 2px;
+  display: block;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.title-sub-kr {
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #555;
+  letter-spacing: 6px;
+  margin-top: 12px;
+  display: block;
+  opacity: 0.75;
+}
+
+.pixel-divider {
+  width: 60px; height: 2px;
+  background: #ccc;
+  margin: 28px auto;
+  position: relative;
+}
+.pixel-divider::before, .pixel-divider::after {
+  content: ''; position: absolute; top: -2px;
+  width: 6px; height: 6px;
+  background: #888; opacity: 0.5;
+}
+.pixel-divider::before { left: -8px; }
+.pixel-divider::after  { right: -8px; }
+
+.click-to-start {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 1px;
+  cursor: pointer;
+  animation: blink 1.2s step-end infinite;
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  transition: background 0.15s, color 0.15s;
+  user-select: none;
+}
+.click-to-start:hover {
+  background: #f5f5f5;
+  color: #111;
+  animation: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+#scene-title::after {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent, transparent 3px,
+    rgba(0,0,0,0.025) 3px, rgba(0,0,0,0.025) 4px
+  );
+  pointer-events: none;
+}
+
+/* ───── 로딩 씬 (index) ───── */
+body.index-page #scene-game {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 20px;
+}
+
+body.index-page .pixel-char { animation: float 3s ease-in-out infinite; }
