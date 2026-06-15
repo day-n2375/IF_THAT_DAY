@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>IF THAT DAY</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="loading-root">
+  <div class="scene-label" id="loading-label">AM 9:00</div>
+  <div class="pixel-char">🏢</div>
+  <div class="scene-title-text" id="loading-title">Chapter ■■</div>
+  <div class="scene-desc" id="loading-desc">출근길,<br>오늘도 별일 없겠지.</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="loading-bar"></div>
+  </div>
+</div>
+
+<script>
+  const bar = document.getElementById('loading-bar');
+  bar.addEventListener('animationend', () => {
+    setTimeout(() => {
+      window.location.href = 'company.html';
+    }, 800);
+  });
+</script>
+</body>
+</html>
